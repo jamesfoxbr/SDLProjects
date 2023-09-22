@@ -1,21 +1,58 @@
-#include "Game.h"
+#include <SDL.h>
+#include <stdio.h>
 
-// our Game object
-Game* g_game = 0;
+// screen dimensions constants
+const int SCREEN_WIDTH = 640;
+const int SCREEN_HEIGHT = 480;
 
 
 int main(int argc, char* argv[])
 {
-	g_game = new Game();
-	g_game->init("Chapter 1", 100, 100, 640, 480, 0);
+	// The window we'll be rendering to
+	SDL_Window* window = NULL;
 
-	while (g_game->running())
+	// the surface constained by the window
+	SDL_Surface* screenSurface = NULL;
+
+	// initialize SDL
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		g_game->handleEvents();
-		g_game->update();
-		g_game->render();
+		printf("SDL cound not initialized! SDL_Error: %s\n", SDL_GetError());
 	}
-	g_game->clean();
+	else
+	{
+		// create window
+		window = SDL_CreateWindow("SDL Tutorial", 
+			SDL_WINDOWPOS_UNDEFINED, 
+			SDL_WINDOWPOS_UNDEFINED, 
+			SCREEN_WIDTH, 
+			SCREEN_HEIGHT, 
+			SDL_WINDOW_SHOWN);
+		if (window == NULL)
+		{
+			printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+		}
+		else
+		{
+			// Get window surface
+			screenSurface = SDL_GetWindowSurface(window);
+
+			//full the surface with white
+			SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0x00, 0xff, 0xff));
+
+			// update the surface
+			SDL_UpdateWindowSurface(window);
+
+			//Hack to get window to stay up
+			SDL_Event e; bool quit = false; while (quit == false){ while (SDL_PollEvent(&e)){ if (e.type == SDL_QUIT) quit = true; } }
+		}
+	}
+
+	// destroy the window
+	SDL_DestroyWindow(window);
+
+	// quit SDL subsystems
+	SDL_Quit();
 
 	return 0;
 }
