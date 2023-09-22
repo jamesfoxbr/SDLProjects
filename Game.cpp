@@ -23,10 +23,12 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
                 m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
                 SDL_FreeSurface(pTempSurface);
                 SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
-                m_destinationRectangle.x = 100;
+                m_destinationRectangle.x = 100;                 // position X
                 m_sourceRectangle.x = 0;
-                m_destinationRectangle.y = 100;
+                m_destinationRectangle.y = 100;                 // position Y
                 m_sourceRectangle.y = 0;
+                m_sourceRectangle.w = 128;                      // texture width
+                m_sourceRectangle.h = 128;                      // texture height
                 m_destinationRectangle.w = m_sourceRectangle.w;
                 m_destinationRectangle.h = m_sourceRectangle.h;
             }
