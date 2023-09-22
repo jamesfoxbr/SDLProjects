@@ -2,6 +2,7 @@
 #define _GAME_
 
 #include <SDL.h>
+#include <SDL_image.h>
 
 class Game
 {
@@ -21,8 +22,13 @@ public:
 	bool running() { return m_bRunning; }
 
 private:
-	SDL_Window* m_pWindow;
+	SDL_Window*   m_pWindow;
 	SDL_Renderer* m_pRenderer;
+	
+
+	SDL_Texture*  m_pTexture;				// the new SDL_Texture variable
+	SDL_Rect      m_sourceRectangle;		// the first rectangle
+	SDL_Rect	  m_destinationRectangle;	// another rectangle
 
 	bool m_bRunning;
 };

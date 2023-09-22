@@ -16,8 +16,19 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
             if (m_pRenderer != 0) // renderer init success
             {
                 std::cout << "renderer creation success\n";
-                SDL_SetRenderDrawColor(m_pRenderer,
-                    255, 255, 255, 255);
+                SDL_SetRenderDrawColor(m_pRenderer, 100, 100, 100, 255);
+
+                // loading image
+                SDL_Surface* pTempSurface = SDL_LoadBMP("images/idle.bmp");
+                m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
+                SDL_FreeSurface(pTempSurface);
+                SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
+                m_destinationRectangle.x = 100;
+                m_sourceRectangle.x = 0;
+                m_destinationRectangle.y = 100;
+                m_sourceRectangle.y = 0;
+                m_destinationRectangle.w = m_sourceRectangle.w;
+                m_destinationRectangle.h = m_sourceRectangle.h;
             }
             else
             {
@@ -36,6 +47,8 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
         std::cout << "SDL init fail\n";
         return false; // SDL init fail
     }
+
+    
     std::cout << "init success\n";
     m_bRunning = true; // everything inited successfully, start the main loop
     
@@ -45,7 +58,9 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 void Game::render()
 {
     SDL_RenderClear(m_pRenderer);       // clear the renderer to the draw color
+    SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
     SDL_RenderPresent(m_pRenderer);     // draw to the screen
+    
 }
 
 void Game::update()
