@@ -24,8 +24,13 @@ public:
 private:
 	SDL_Window*   m_pWindow;
 	SDL_Renderer* m_pRenderer;
-	
 
+	// PNG image
+	SDL_Surface* m_pImage;
+	SDL_Rect m_imageSourceRectangle;
+	SDL_Rect m_imageDestinationRectangle;
+
+	// BMP image
 	SDL_Texture*  m_pTexture;				// the new SDL_Texture variable
 	SDL_Rect      m_sourceRectangle;		// the first rectangle
 	SDL_Rect	  m_destinationRectangle;	// another rectangle

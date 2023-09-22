@@ -18,7 +18,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
                 std::cout << "renderer creation success\n";
                 SDL_SetRenderDrawColor(m_pRenderer, 100, 100, 100, 255);
 
-                // loading image
+                // loading BMP image
                 SDL_Surface* pTempSurface = SDL_LoadBMP("images/idle.bmp");
                 m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
                 SDL_FreeSurface(pTempSurface);
@@ -62,7 +62,6 @@ void Game::render()
     SDL_RenderClear(m_pRenderer);       // clear the renderer to the draw color
     SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
     SDL_RenderPresent(m_pRenderer);     // draw to the screen
-    
 }
 
 void Game::update()
@@ -91,5 +90,6 @@ void Game::clean()
     std::cout << "cleaning game\n";
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
+    IMG_Quit();
     SDL_Quit();
 }
