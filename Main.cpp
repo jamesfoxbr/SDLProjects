@@ -3,6 +3,7 @@
 #include <string>
 #include "Main.h"
 #include "ImageLoader.h" // Include the new header
+#include "Controls.h"
 
 // Declare SDL_Window and SDL_Surface pointers
 SDL_Window* gWindow = nullptr;
@@ -11,15 +12,8 @@ SDL_Surface* gPNGSurface = nullptr;
 
 int main(int argc, char* args[])
 {
-    float playerPositionX = 10;
-    float playerPositionY = 10;
-    float playerSpeed = 0.05;
-
-    // Detect Keypress
-    bool up = false;
-    bool down = false;
-    bool left = false;
-    bool right = false;
+    // Create user control
+    Controls controls;
 
     // Start up SDL and create window
     if (!init())
@@ -52,43 +46,18 @@ int main(int argc, char* args[])
                     {
                         quit = true;
                     }
-
                     // User Movement
-                    // RIGHT
-                    if (SDL_KEYDOWN == event.type)
-                    {
-                        if (SDLK_RIGHT == event.key.keysym.sym)
-                            right = true;
-                    }
-                    if (SDL_KEYUP == event.type)
-                    {
-                        if (SDLK_RIGHT == event.key.keysym.sym)
-                            right = false;
-                    }
-                    // LEFT
-                    if (SDL_KEYDOWN == event.type)
-                    {
-                        if (SDLK_LEFT == event.key.keysym.sym)
-                            left = true;
-                    }
-                    if (SDL_KEYUP == event.type)
-                    {
-                        if (SDLK_LEFT == event.key.keysym.sym)
-                            left = false;
-                    }
+                    controls.Movement(event);
                 }
 
-                // Apply keypresses
-                if (left  == true) playerPositionX -= playerSpeed;
-                if (right == true) playerPositionX += playerSpeed;
-                if (up    == true) playerPositionY -= playerSpeed;
-                if (down  == true) playerPositionY += playerSpeed;
+                // Apply user keypresses
+                controls.ApplyKeys();
 
                 // Clear the screen with a gray background (RGB values for gray)
                 SDL_FillRect(gScreenSurface, nullptr, SDL_MapRGB(gScreenSurface->format, 128, 128, 128));
 
                 // Apply the PNG image
-                SDL_Rect destRect = {playerPositionX, playerPositionY, gPNGSurface->w, gPNGSurface->h};
+                SDL_Rect destRect = {controls.GetX(), controls.GetY(), gPNGSurface->w, gPNGSurface->h};
                 SDL_BlitSurface(gPNGSurface, nullptr, gScreenSurface, &destRect);
 
                 // Update the surface

@@ -137,10 +137,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Controls.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Controls.h" />
     <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="Main.h" />
   </ItemGroup>
