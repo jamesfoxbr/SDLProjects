@@ -15,7 +15,10 @@ int main(int argc, char* args[])
 
     // Create user control
     Controls controls;
-    ImageLoader jaminho;
+
+    // Create image object
+    ImageLoader jaminho("images/Idle.png");
+    ImageLoader ball("images/Ball.png");
 
     // Start up SDL and create window
     if (!init())
@@ -24,8 +27,6 @@ int main(int argc, char* args[])
     }
     else
     {
-        // Load media
-        jaminho.load("images/Idle.png");
         
         // Main game loop flag
         bool quit = false;
@@ -54,14 +55,16 @@ int main(int argc, char* args[])
             // Clear the screen with a gray background (RGB values for gray)
             SDL_FillRect(gScreenSurface, nullptr, SDL_MapRGB(gScreenSurface->format, 128, 128, 128));
 
-            // Apply the PNG image
+            // Display the PNG images
             jaminho.display(gScreenSurface, controls.GetX(), controls.GetY());
+            for (int i = 0; i < 10; i++)
+            {
+                ball.display(gScreenSurface, rand()%100 + (i * 8), rand() % 100 + (i * 8));
+            }
 
             // Update the surface
             SDL_UpdateWindowSurface(gWindow);
-
         }
-        
     }
 
     // Free resources and close SDL

@@ -2,12 +2,12 @@
 #include "ImageLoader.h"
 #include <SDL_image.h>
 
-SDL_Surface* ImageLoader::load(std::string path) {
+ImageLoader::ImageLoader(std::string path) 
+{
     mloadedSurface = IMG_Load(path.c_str());
     if (mloadedSurface == nullptr) {
         printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
     }
-    return mloadedSurface;
 }
 
 void ImageLoader::display(SDL_Surface* ScreenSurface, float x, float y)

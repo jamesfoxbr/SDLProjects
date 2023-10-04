@@ -9,7 +9,7 @@ private:
     SDL_Surface* mPNGSurface    = nullptr;
     SDL_Surface* mloadedSurface = nullptr;
 public:
-    SDL_Surface* load(std::string path);
+    ImageLoader(std::string path);
     void display(SDL_Surface* ScreenSurface, float x, float y);
 
 };
