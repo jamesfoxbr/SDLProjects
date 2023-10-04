@@ -12,5 +12,4 @@ extern SDL_Surface* gScreenSurface;
 extern SDL_Surface* gPNGSurface;
 
 bool init();
-bool loadMedia();
 void close();

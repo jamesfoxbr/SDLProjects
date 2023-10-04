@@ -7,53 +7,61 @@ void Controls::Movement	(SDL_Event event)
     if (SDL_KEYDOWN == event.type)
     {
         if (SDLK_RIGHT == event.key.keysym.sym)
-            m_right = true;
+            mRight = true;
     }
     if (SDL_KEYUP == event.type)
     {
         if (SDLK_RIGHT == event.key.keysym.sym)
-            m_right = false;
+            mRight = false;
     }
     // LEFT
     if (SDL_KEYDOWN == event.type)
     {
         if (SDLK_LEFT == event.key.keysym.sym)
-            m_left = true;
+            mLeft = true;
     }
     if (SDL_KEYUP == event.type)
     {
         if (SDLK_LEFT == event.key.keysym.sym)
-            m_left = false;
+            mLeft = false;
     }
     // DOWN
     if (SDL_KEYDOWN == event.type)
     {
         if (SDLK_DOWN == event.key.keysym.sym)
-            m_down = true;
+            mDown = true;
     }
     if (SDL_KEYUP == event.type)
     {
         if (SDLK_DOWN == event.key.keysym.sym)
-            m_down = false;
+            mDown = false;
     }
     // UP
     if (SDL_KEYDOWN == event.type)
     {
         if (SDLK_UP == event.key.keysym.sym)
-            m_up = true;
+            mUp = true;
     }
     if (SDL_KEYUP == event.type)
     {
         if (SDLK_UP == event.key.keysym.sym)
-            m_up = false;
+            mUp = false;
     }
+}
+
+Controls::Controls()
+    :
+    mPlayerPositionX(10),
+    mPlayerPositionY(10),
+    mPlayerSpeed(0.05f)
+{
 }
 
 void Controls::ApplyKeys()
 {
     // Apply keypresses
-    if (m_left == true)  m_playerPositionX -= m_playerSpeed;
-    if (m_right == true) m_playerPositionX += m_playerSpeed;
-    if (m_up == true)    m_playerPositionY -= m_playerSpeed;
-    if (m_down == true)  m_playerPositionY += m_playerSpeed;
+    if (mLeft == true)  mPlayerPositionX -= mPlayerSpeed;
+    if (mRight == true) mPlayerPositionX += mPlayerSpeed;
+    if (mUp == true)    mPlayerPositionY -= mPlayerSpeed;
+    if (mDown == true)  mPlayerPositionY += mPlayerSpeed;
 }

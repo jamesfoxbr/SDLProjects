@@ -12,8 +12,10 @@ SDL_Surface* gPNGSurface = nullptr;
 
 int main(int argc, char* args[])
 {
+
     // Create user control
     Controls controls;
+    ImageLoader jaminho;
 
     // Start up SDL and create window
     if (!init())
@@ -23,48 +25,43 @@ int main(int argc, char* args[])
     else
     {
         // Load media
-        if (!loadMedia())
-        {
-            printf("Failed to load media!\n");
-        }
-        else
-        {
-            // Main game loop flag
-            bool quit = false;
+        jaminho.load("images/Idle.png");
+        
+        // Main game loop flag
+        bool quit = false;
 
-            // Event handler
-            SDL_Event event;
+        // Event handler
+        SDL_Event event;
 
-            // Main game loop
-            while (!quit)
+        // Main game loop
+        while (!quit)
+        {
+            //Handle events on queue
+            while (SDL_PollEvent(&event) != 0)
             {
-                //Handle events on queue
-                while (SDL_PollEvent(&event) != 0)
+                //User requests quit
+                if (event.type == SDL_QUIT)
                 {
-                    //User requests quit
-                    if (event.type == SDL_QUIT)
-                    {
-                        quit = true;
-                    }
-                    // User Movement
-                    controls.Movement(event);
+                    quit = true;
                 }
-
-                // Apply user keypresses
-                controls.ApplyKeys();
-
-                // Clear the screen with a gray background (RGB values for gray)
-                SDL_FillRect(gScreenSurface, nullptr, SDL_MapRGB(gScreenSurface->format, 128, 128, 128));
-
-                // Apply the PNG image
-                SDL_Rect destRect = {controls.GetX(), controls.GetY(), gPNGSurface->w, gPNGSurface->h};
-                SDL_BlitSurface(gPNGSurface, nullptr, gScreenSurface, &destRect);
-
-                // Update the surface
-                SDL_UpdateWindowSurface(gWindow);
-
+                // User Movement
+                controls.Movement(event);
             }
+
+            // Apply user keypresses
+            controls.ApplyKeys();
+
+            // Clear the screen with a gray background (RGB values for gray)
+            SDL_FillRect(gScreenSurface, nullptr, SDL_MapRGB(gScreenSurface->format, 128, 128, 128));
+
+            // Apply the PNG image
+            jaminho.display(gScreenSurface, controls.GetX(), controls.GetY());
+
+            // Update the surface
+            SDL_UpdateWindowSurface(gWindow);
+
         }
+        
     }
 
     // Free resources and close SDL
@@ -98,22 +95,6 @@ bool init()
             // Get window surface
             gScreenSurface = SDL_GetWindowSurface(gWindow);
         }
-    }
-
-    return success;
-}
-
-bool loadMedia()
-{
-    // Loading success flag
-    bool success = true;
-
-    // Load PNG surface using the ImageLoader class
-    gPNGSurface = ImageLoader::load("images/Idle.png");
-    if (gPNGSurface == nullptr)
-    {
-        printf("Failed to load PNG image!\n");
-        success = false;
     }
 
     return success;

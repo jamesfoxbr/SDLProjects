@@ -6,33 +6,26 @@
 class Controls
 {
 private:
-    float m_playerPositionX;
-    float m_playerPositionY;
-    float m_playerSpeed;
+    float mPlayerPositionX;
+    float mPlayerPositionY;
+    float mPlayerSpeed;
 
     // Detect Keypress
-    bool m_up = false;
-    bool m_down = false;
-    bool m_left = false;
-    bool m_right = false;
+    bool mUp = false;
+    bool mDown = false;
+    bool mLeft = false;
+    bool mRight = false;
 public:
-    Controls()
-        :
-        m_playerPositionX(10),
-        m_playerPositionY(10),
-        m_playerSpeed(0.05)
-    {
-
-    }
+    Controls();
     void Movement(SDL_Event event);
     void ApplyKeys();
     float GetX() 
     {
-        return m_playerPositionX;
+        return mPlayerPositionX;
     }
     float GetY()
     {
-        return m_playerPositionY;
+        return mPlayerPositionY;
     }
 };
 
