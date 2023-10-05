@@ -10,6 +10,7 @@ private:
     SDL_Surface* mloadedSurface = nullptr;
 public:
     ImageLoader(std::string path);
+    ImageLoader() = default;
     void display(SDL_Surface* ScreenSurface, float x, float y);
 
 };

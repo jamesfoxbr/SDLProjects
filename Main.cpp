@@ -4,6 +4,7 @@
 #include "Main.h"
 #include "ImageLoader.h" // Include the new header
 #include "Controls.h"
+#include "Object.h"
 
 // Declare SDL_Window and SDL_Surface pointers
 SDL_Window* gWindow = nullptr;
@@ -17,8 +18,8 @@ int main(int argc, char* args[])
     Controls controls;
 
     // Create image object
-    ImageLoader jaminho("images/Idle.png");
-    ImageLoader ball("images/Ball.png");
+    Object james(50, 50, "images/Idle.png");
+    Object ball(120, 120, "images/Ball.png");
 
     // Start up SDL and create window
     if (!init())
@@ -56,7 +57,9 @@ int main(int argc, char* args[])
             SDL_FillRect(gScreenSurface, nullptr, SDL_MapRGB(gScreenSurface->format, 128, 128, 128));
 
             // Display the PNG images
-            jaminho.display(gScreenSurface, controls.GetX(), controls.GetY());
+            ball.mSprite.display(gScreenSurface, 300, 200);
+            james.mSprite.display(gScreenSurface, controls.GetX(), controls.GetY());
+            
 
             // Update the surface
             SDL_UpdateWindowSurface(gWindow);

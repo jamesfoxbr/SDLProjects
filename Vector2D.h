@@ -3,46 +3,88 @@
 
 // Vector2D
 
-template<typename T>
-struct Vector2D
+struct Vector2Di
 {
-	T x, y;
+	int mX, mY;
 
-	Vector2D operator+(Vector2D const& obj)
+	Vector2Di operator+(Vector2Di const& obj)
 	{
-		Vector2D vec;
-		vec.x = x + obj.x;
-		vec.y = y + obj.y;
+		Vector2Di vec;
+		vec.mX = mX + obj.mX;
+		vec.mY = mY + obj.mY;
 		return vec;
 	}
-	Vector2D operator-(Vector2D const& obj)
+	Vector2Di operator-(Vector2Di const& obj)
 	{
-		Vector2D vec;
-		vec.x = x - obj.x;
-		vec.y = y - obj.y;
+		Vector2Di vec;
+		vec.mX = mX - obj.mX;
+		vec.mY = mY - obj.mY;
 		return vec;
 	}
-	Vector2D operator*(Vector2D const& obj)
+	Vector2Di operator*(Vector2Di const& obj)
 	{
-		Vector2D vec;
-		vec.x = x * obj.x;
-		vec.y = y * obj.y;
+		Vector2Di vec;
+		vec.mX = mX * obj.mX;
+		vec.mY = mY * obj.mY;
 		return vec;
 	}
-	Vector2D operator/(Vector2D const& obj)
+	Vector2Di operator/(Vector2Di const& obj)
 	{
-		Vector2D vec;
-		vec.x = x / obj.x;
-		vec.y = y / obj.y;
+		Vector2Di vec;
+		vec.mX = mX / obj.mX;
+		vec.mY = mY / obj.mY;
 		return vec;
-	}
-
-	Vector2D(T x, T y)
-		: x(x), y(y)
-	{
 	}
 
-	Vector2D() = default;
+	Vector2Di(int x, int y)
+		: mX(x), mY(y)
+	{
+	}
+
+	Vector2Di() = default;
+};
+
+// Float version
+
+struct Vector2Df
+{
+	int mX, mY;
+
+	Vector2Df operator+(Vector2Df const& obj)
+	{
+		Vector2Df vec;
+		vec.mX = mX + obj.mX;
+		vec.mY = mY + obj.mY;
+		return vec;
+	}
+	Vector2Df operator-(Vector2Df const& obj)
+	{
+		Vector2Df vec;
+		vec.mX = mX - obj.mX;
+		vec.mY = mY - obj.mY;
+		return vec;
+	}
+	Vector2Df operator*(Vector2Df const& obj)
+	{
+		Vector2Df vec;
+		vec.mX = mX * obj.mX;
+		vec.mY = mY * obj.mY;
+		return vec;
+	}
+	Vector2Df operator/(Vector2Df const& obj)
+	{
+		Vector2Df vec;
+		vec.mX = mX / obj.mX;
+		vec.mY = mY / obj.mY;
+		return vec;
+	}
+
+	Vector2Df(int x, int y)
+		: mX(x), mY(y)
+	{
+	}
+
+	Vector2Df() = default;
 };
 
 #endif // !VECTOR_2D
