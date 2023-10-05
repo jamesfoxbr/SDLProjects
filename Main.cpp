@@ -1,118 +1,120 @@
-// Main.cpp
+//Using SDL and standard IO
+#include <SDL.h>
 #include <stdio.h>
-#include <string>
-#include "Main.h"
-#include "ImageLoader.h" // Include the new header
-#include "Controls.h"
-#include "Object.h"
 
-// Declare SDL_Window and SDL_Surface pointers
-SDL_Window* gWindow = nullptr;
-SDL_Surface* gScreenSurface = nullptr;
-SDL_Surface* gPNGSurface = nullptr;
+//Screen dimension constants
+const int SCREEN_WIDTH = 640;
+const int SCREEN_HEIGHT = 480;
+
+//Starts up SDL and creates window
+bool init();
+
+//Loads media
+bool loadMedia();
+
+//Frees media and shuts down SDL
+void close();
+
+//The window we'll be rendering to
+SDL_Window* gWindow = NULL;
+
+//The surface contained by the window
+SDL_Surface* gScreenSurface = NULL;
+
+//The image we will load and show on the screen
+SDL_Surface* gHelloWorld = NULL;
+
 
 int main(int argc, char* args[])
 {
+	
+	//Start up SDL and create widnow
+	if (!init())
+	{
+		printf("Failed to initialize!\n");
+	}
+	else
+	{
+		//Load media
+		if (!loadMedia())
+		{
+			printf("Failed to load media!\n");
+		}
+		else
+		{
+			//apply image
+			SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
 
-    // Create user control
-    Controls controls;
+			//Update surface
+			SDL_UpdateWindowSurface(gWindow);
 
-    // Create image object
-    Object james(50, 50, "images/Idle.png");
-    Object ball(120, 120, "images/Ball.png");
+			//Hack to get window to stay up
+			SDL_Event e; bool quit = false; while (quit == false){ while (SDL_PollEvent(&e)){ if (e.type == SDL_QUIT) quit = true; } }
+		}
+	}
 
-    // Start up SDL and create window
-    if (!init())
-    {
-        printf("Failed to initialize!\n");
-    }
-    else
-    {
-        
-        // Main game loop flag
-        bool quit = false;
+	//Free resources and close SDL
+	close();
 
-        // Event handler
-        SDL_Event event;
-
-        // Main game loop
-        while (!quit)
-        {
-            //Handle events on queue
-            while (SDL_PollEvent(&event) != 0)
-            {
-                //User requests quit
-                if (event.type == SDL_QUIT)
-                {
-                    quit = true;
-                }
-                // User Movement
-                controls.Movement(event);
-            }
-
-            // Apply user keypresses
-            controls.ApplyKeys();
-
-            // Clear the screen with a gray background (RGB values for gray)
-            SDL_FillRect(gScreenSurface, nullptr, SDL_MapRGB(gScreenSurface->format, 128, 128, 128));
-
-            // Display the PNG images
-            ball.mSprite.display(gScreenSurface, 300, 200);
-            james.mSprite.display(gScreenSurface, controls.GetX(), controls.GetY());
-            
-
-            // Update the surface
-            SDL_UpdateWindowSurface(gWindow);
-        }
-    }
-
-    // Free resources and close SDL
-    close();
-
-    return 0;
+	return 0;
 }
 
 bool init()
 {
-    // Initialization flag
-    bool success = true;
+	//Initialization flag
+	bool success = true;
 
-    // Initialize SDL
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
-    {
-        printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
-        success = false;
-    }
-    else
-    {
-        // Create window
-        gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-        if (gWindow == nullptr)
-        {
-            printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
-            success = false;
-        }
-        else
-        {
-            // Get window surface
-            gScreenSurface = SDL_GetWindowSurface(gWindow);
-        }
-    }
+	//Initialize SDL
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	{
+		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+		success = false;
+	}
+	else
+	{
+		//Create window
+		gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		if (gWindow == NULL)
+		{
+			printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+			success = false;
+		}
+		else
+		{
+			//Get window surface
+			gScreenSurface = SDL_GetWindowSurface(gWindow);
+		}
+	}
 
-    return success;
+	return success;
+}
+
+bool loadMedia()
+{
+	//Loading success flag
+	bool success = true;
+
+	//Load splash image
+	gHelloWorld = SDL_LoadBMP("images/hello_world.bmp");
+	if (gHelloWorld == NULL)
+	{
+		printf("Unable to load image %s! SDL Error: %s\n", "02_getting_an_image_on_the_screen/hello_world.bmp", SDL_GetError());
+		success = false;
+	}
+
+	return success;
 }
 
 void close()
 {
-    // Free loaded image
-    SDL_FreeSurface(gPNGSurface);
-    gPNGSurface = nullptr;
+	//Dellocate surface
+	SDL_FreeSurface(gHelloWorld);
+	gHelloWorld = NULL;
 
-    // Destroy window
-    SDL_DestroyWindow(gWindow);
-    gWindow = nullptr;
+	//Destroy window
+	SDL_DestroyWindow(gWindow);
+	gWindow = NULL;
 
-    // Quit SDL subsystems
-    IMG_Quit();
-    SDL_Quit();
+	//Quit SDL subsystems
+	SDL_Quit();
 }
