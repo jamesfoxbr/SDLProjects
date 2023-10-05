@@ -57,10 +57,6 @@ int main(int argc, char* args[])
 
             // Display the PNG images
             jaminho.display(gScreenSurface, controls.GetX(), controls.GetY());
-            for (int i = 0; i < 10; i++)
-            {
-                ball.display(gScreenSurface, rand()%100 + (i * 8), rand() % 100 + (i * 8));
-            }
 
             // Update the surface
             SDL_UpdateWindowSurface(gWindow);
