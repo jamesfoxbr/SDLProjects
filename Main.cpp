@@ -27,7 +27,6 @@ SDL_Surface* gHelloWorld = NULL;
 
 int main(int argc, char* args[])
 {
-	
 	//Start up SDL and create widnow
 	if (!init())
 	{
@@ -42,14 +41,33 @@ int main(int argc, char* args[])
 		}
 		else
 		{
-			//apply image
-			SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
+			//Main loop flag
+			bool quit = false;
 
-			//Update surface
-			SDL_UpdateWindowSurface(gWindow);
+			//Event handler
+			SDL_Event e;
 
-			//Hack to get window to stay up
-			SDL_Event e; bool quit = false; while (quit == false){ while (SDL_PollEvent(&e)){ if (e.type == SDL_QUIT) quit = true; } }
+			//While application is running
+			while (!quit)
+			{
+				//Handle events on queue
+				while (SDL_PollEvent(&e) != 0)
+				{
+					//User request quit
+					if (e.type == SDL_QUIT)
+					{
+						quit = true;
+					}
+				}
+				
+				//apply image
+				SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
+
+				//Update surface
+				SDL_UpdateWindowSurface(gWindow);
+			}
+
+			
 		}
 	}
 
