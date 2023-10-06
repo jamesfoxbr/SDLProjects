@@ -28,8 +28,12 @@ void Engine::GameLoop()
         Update();
 
         //Update drawings
-        Draw();
+        SDL_FillRect(mScreenSurface, NULL, SDL_MapRGB(mScreenSurface->format, 0x88, 0x88, 0x88));
 
+        //Update the surface
+        SDL_UpdateWindowSurface(mWindow);
+
+        Draw();
     }
 }
 
@@ -53,6 +57,9 @@ void Engine::Draw()
 
 Engine::Engine()
 {
+    //Create window
+    mWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+
 	// Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
@@ -60,8 +67,8 @@ Engine::Engine()
     }
     else
     {
-        //Create window
-        Window window;
+        //Get window surface
+        mScreenSurface = SDL_GetWindowSurface(mWindow);
 
         //Start gameloop
         GameLoop();
@@ -70,6 +77,7 @@ Engine::Engine()
 
 Engine::~Engine()
 {
+    
     //Quit SDL subsystems
     SDL_Quit();
 }
