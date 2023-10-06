@@ -27,35 +27,39 @@ void Engine::GameLoop()
         //Update game logic
         Update();
 
-        //Update drawings
+        //Fill surface with color
         SDL_FillRect(mScreenSurface, NULL, SDL_MapRGB(mScreenSurface->format, 0x88, 0x88, 0x88));
 
-        //Update the surface
-        SDL_UpdateWindowSurface(mWindow);
-
         Draw();
+
+        //Update the surface
+        SDL_UpdateWindowSurface(mWindow); 
     }
 }
 
 void Engine::Start()
 {
-    //Called when a new game starts
-
+    
+    
 }
 
 void Engine::Update()
 {
     //Called every frame
-
+    
 }
 
 void Engine::Draw()
 {
     //Called every frame
-
+    jaminho.display(mScreenSurface, mPlayerPositionX, mPlayerPositionY);
 }
 
 Engine::Engine()
+    :
+    mPlayerPositionX(10),
+    mPlayerPositionY(10),
+    mPlayerSpeed(0.05f)
 {
     //Create window
     mWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -76,8 +80,12 @@ Engine::Engine()
 }
 
 Engine::~Engine()
-{
-    
+{ 
     //Quit SDL subsystems
     SDL_Quit();
+}
+
+SDL_Surface Engine::GetSurface()
+{
+    return *mScreenSurface; 
 }

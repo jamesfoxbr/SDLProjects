@@ -2,6 +2,7 @@
 #define OBJECT_H
 
 #include "Vector2D.h"
+#include "Sprite.h"
 #include <string>
 
 class Object
@@ -9,10 +10,9 @@ class Object
 private:
 	Vector2Di mPosition{0,0};
 public:
-	Object(int x, int y);
+	Object(int x, int y, std::string path);
 	Object() = default;
-	void GetPosition(int x, int y);
+	void Position(int x, int y);
 };
 
 #endif // !OBJECT_H
-
