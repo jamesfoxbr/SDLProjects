@@ -17,8 +17,13 @@ Sprite::~Sprite()
     mPNGSurface = nullptr;
 }
 
-void Sprite::display(SDL_Surface* ScreenSurface, float x, float y)
+void Sprite::Display(float x, float y, SDL_Surface* ScreenSurface)
 {
     SDL_Rect destRect = {(int)x, (int)y, mloadedSurface->w, mloadedSurface->h};
     SDL_BlitSurface(mloadedSurface, nullptr, ScreenSurface, &destRect);
+}
+
+SDL_Surface Sprite::GetLoadedSurface()
+{
+    return *mloadedSurface;
 }

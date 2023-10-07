@@ -13,7 +13,8 @@ public:
     Sprite(std::string path);
     Sprite() = default;
     ~Sprite();
-    void display(SDL_Surface* ScreenSurface, float x, float y);
+    void Display(float x, float y, SDL_Surface* ScreenSurface);
+    SDL_Surface GetLoadedSurface();
 
 };
 

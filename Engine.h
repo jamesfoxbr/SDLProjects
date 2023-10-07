@@ -6,7 +6,7 @@
 #include <vector>
 #include "Window.h"
 #include "Object.h"
-#include "Sprite.h"
+#include "Object.h"
 
 class Engine
 {
@@ -21,10 +21,7 @@ private:
 
 public:
 	// Player variables
-	Sprite jaminho{"images/Idle.png"};
-	float mPlayerPositionX = 10.0f;
-	float mPlayerPositionY = 10.0f;
-	float mPlayerSpeed;
+	Object james{50, 50, "images/Idle.png"};
 
 	// Detect Keypress
 	bool mUp = false;

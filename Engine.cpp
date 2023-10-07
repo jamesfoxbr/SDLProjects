@@ -40,7 +40,6 @@ void Engine::GameLoop()
 void Engine::Start()
 {
     
-    
 }
 
 void Engine::Update()
@@ -52,14 +51,10 @@ void Engine::Update()
 void Engine::Draw()
 {
     //Called every frame
-    jaminho.display(mScreenSurface, mPlayerPositionX, mPlayerPositionY);
+    james.Display(50, 50, mScreenSurface); 
 }
 
 Engine::Engine()
-    :
-    mPlayerPositionX(10),
-    mPlayerPositionY(10),
-    mPlayerSpeed(0.05f)
 {
     //Create window
     mWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
