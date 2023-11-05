@@ -49,7 +49,7 @@ struct Vector2Di
 
 struct Vector2Df
 {
-	int mX, mY;
+	float mX, mY;
 
 	Vector2Df operator+(Vector2Df const& obj)
 	{
@@ -80,7 +80,7 @@ struct Vector2Df
 		return vec;
 	}
 
-	Vector2Df(int x, int y)
+	Vector2Df(float x, float y)
 		: mX(x), mY(y)
 	{
 	}

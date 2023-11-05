@@ -27,7 +27,7 @@ private:
 
 public:
 	// Player variables
-	Object james{(int)playerX, (int)playerY, "images/Idle.png"};
+	Object james{playerX, playerY, "images/Idle.png"};
 	
 
 	// Detect Keypress
@@ -47,7 +47,6 @@ public:
 	SDL_Surface GetSurface();
 
 	void PlayerMovement(const SDL_Event& e);
-	bool KeepPLayerOnScreen();
 	void ApplyPlayerMovement();
 };
 

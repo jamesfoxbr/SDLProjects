@@ -1,6 +1,6 @@
 #include "Player.h"
 
-void Player::SetPosition(int x, int y)
+void Player::SetPosition(float x, float y)
 {
 	mPosition.mX = x;
 	mPosition.mY = y;

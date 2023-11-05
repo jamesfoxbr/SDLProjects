@@ -1,6 +1,6 @@
 #include "Object.h"
 
-Object::Object(int x, int y, std::string path)
+Object::Object(float x, float y, std::string path)
 	:
 	mPosition{x, y}
 {
@@ -12,13 +12,13 @@ Object::~Object()
 	delete mSprite;
 }
 
-void Object::SetPosition(int x, int y)
+void Object::SetPosition(float x, float y)
 {
 	mPosition.mX = x;
 	mPosition.mY = y;
 }
 
-Vector2Di Object::GetPosition()
+Vector2Df Object::GetPosition()
 {
 	return mPosition;
 }

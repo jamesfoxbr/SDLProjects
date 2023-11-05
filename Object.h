@@ -9,16 +9,16 @@ class Object
 {
 protected:
 	float     mSpeed = 0;
-	Vector2Di mPosition{0,0};
+	Vector2Df mPosition{0,0};
 	Sprite*   mSprite = nullptr;
 private:
 	
 public:
-	Object(int x, int y, std::string path);
+	Object(float x, float y, std::string path);
 	Object() = default;
 	~Object();
-	void SetPosition(int x, int y);
-	Vector2Di GetPosition();
+	void SetPosition(float x, float y);
+	Vector2Df GetPosition();
 	void Display(float x, float y, SDL_Surface* ScreenSurface);
 };
 

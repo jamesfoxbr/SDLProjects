@@ -75,7 +75,7 @@ void Engine::Update()
 void Engine::Draw()
 {
     //Called every frame
-    james.Display((int)playerX, (int)playerY, mScreenSurface);
+    james.Display(playerX, playerY, mScreenSurface);
 }
 
 Engine::~Engine()
@@ -105,16 +105,8 @@ void Engine::PlayerMovement(const SDL_Event &e)
         if (e.key.keysym.sym == SDLK_DOWN) { moveDown  = false; }
         if (e.key.keysym.sym == SDLK_UP)   { moveUp    = false; }
     }
-    moveDown = KeepPLayerOnScreen();
 }
 
-bool Engine::KeepPLayerOnScreen()
-{
-    if (playerY > 400) 
-    { 
-        return false;
-    }
-}
 
 void Engine::ApplyPlayerMovement()
 {

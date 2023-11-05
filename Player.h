@@ -9,7 +9,7 @@ class Player: public Object
 private:
 
 public:
-	void SetPosition(int x, int y);
+	void SetPosition(float x, float y);
 };
 
 #endif // !PLAYER_H
