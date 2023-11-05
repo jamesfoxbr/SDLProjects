@@ -12,10 +12,15 @@ Object::~Object()
 	delete mSprite;
 }
 
-void Object::Position(int x, int y)
+void Object::SetPosition(int x, int y)
 {
 	mPosition.mX = x;
 	mPosition.mY = y;
+}
+
+Vector2Di Object::GetPosition()
+{
+	return mPosition;
 }
 
 void Object::Display(float x, float y, SDL_Surface* ScreenSurface)

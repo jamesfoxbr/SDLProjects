@@ -6,7 +6,6 @@
 #include <vector>
 #include "Window.h"
 #include "Object.h"
-#include "Object.h"
 
 class Engine
 {
@@ -17,11 +16,19 @@ private:
 	SDL_Window* mWindow = nullptr;           //The window we'll be rendering to
 	SDL_Surface* mScreenSurface = nullptr;	 //The surface contained by the window
 
-	
+	float playerX     = 50;
+	float playerY     = 50;
+	float playerSpeed = 0.05f;
+
+	bool moveRight = false;
+	bool moveLeft  = false;
+	bool moveDown  = false;
+	bool moveUp    = false;
 
 public:
 	// Player variables
-	Object james{50, 50, "images/Idle.png"};
+	Object james{(int)playerX, (int)playerY, "images/Idle.png"};
+	
 
 	// Detect Keypress
 	bool mUp = false;
@@ -38,6 +45,10 @@ public:
 	void Draw();
 
 	SDL_Surface GetSurface();
+
+	void PlayerMovement(const SDL_Event& e);
+	bool KeepPLayerOnScreen();
+	void ApplyPlayerMovement();
 };
 
 #endif // !ENGINE_H
