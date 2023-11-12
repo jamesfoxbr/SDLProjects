@@ -45,6 +45,7 @@ public:
 	SDL_Surface GetSurface();
 
 	void PlayerMovement(const SDL_Event& e);
+	void AvoidLeaveScreen();
 	void ApplyPlayerMovement();
 };
 

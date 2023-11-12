@@ -46,9 +46,6 @@ void Engine::GameLoop()
                 quit = true;
             }
         }
-
-        // Apply player movement
-        ApplyPlayerMovement();
                 
         //Update game logic
         Update();
@@ -70,7 +67,9 @@ void Engine::Start()
 
 void Engine::Update()
 {
-    //Called every frame   
+    AvoidLeaveScreen();
+    // Apply player movement
+    ApplyPlayerMovement();
 }
 
 void Engine::Draw()
@@ -106,6 +105,14 @@ void Engine::PlayerMovement(const SDL_Event &e)
         if (e.key.keysym.sym == SDLK_DOWN) { moveDown  = false; }
         if (e.key.keysym.sym == SDLK_UP)   { moveUp    = false; }
     }
+}
+
+void Engine::AvoidLeaveScreen()
+{
+    if (playerX <= 0) { playerX = 0; }
+    if (playerX >= SCREEN_WIDTH - 16) { playerX = SCREEN_WIDTH - 16; }
+    if (playerY <= 0) { playerY = 0; }
+    if (playerY >= SCREEN_HEIGHT - 16) { playerY = SCREEN_HEIGHT - 16; }
 }
 
 void Engine::ApplyPlayerMovement()
