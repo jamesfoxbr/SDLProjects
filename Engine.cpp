@@ -27,7 +27,7 @@ void Engine::GameLoop()
     bool quit = false;
 
     //Event handler
-    SDL_Event e;
+    SDL_Event event;
 
     //Called one time when the game starts
     Start();
@@ -36,12 +36,12 @@ void Engine::GameLoop()
     while (!quit)
     {
         //Handle events on queue
-        while (SDL_PollEvent(&e) != 0)
+        while (SDL_PollEvent(&event) != 0)
         {
-            PlayerMovement(e);
+            PlayerMovement(event);
             
             //User requests quit
-            if (e.type == SDL_QUIT)
+            if (event.type == SDL_QUIT)
             {
                 quit = true;
             }
@@ -62,14 +62,16 @@ void Engine::GameLoop()
 
 void Engine::Start()
 {
-    
 }
 
 void Engine::Update()
 {
+    if (playerY >= SCREEN_HEIGHT - 16) { grounded = true; }
+    else { grounded = false; }
+
     AvoidLeaveScreen();
-    // Apply player movement
     ApplyPlayerMovement();
+    ApplyGravity();
 }
 
 void Engine::Draw()
@@ -89,21 +91,26 @@ SDL_Surface Engine::GetSurface()
     return *mScreenSurface; 
 }
 
-void Engine::PlayerMovement(const SDL_Event &e)
+void Engine::PlayerMovement(const SDL_Event &event)
 {
-    if (e.type == SDL_KEYDOWN)
+
+    if (event.type == SDL_KEYDOWN)
     {
-        if (e.key.keysym.sym == SDLK_RIGHT) {moveRight = true;}
-        if (e.key.keysym.sym == SDLK_LEFT) { moveLeft  = true;}
-        if (e.key.keysym.sym == SDLK_DOWN) { moveDown  = true; }
-        if (e.key.keysym.sym == SDLK_UP)   { moveUp    = true; }
+        if (event.key.keysym.sym == SDLK_RIGHT) {moveRight = true;}
+        if (event.key.keysym.sym == SDLK_LEFT)  {moveLeft  = true;}
+        if (event.key.keysym.sym == SDLK_DOWN)  {moveDown  = true;}
+        if (event.key.keysym.sym == SDLK_UP)    {moveUp    = true;}
+        // Jump
+        if (event.key.keysym.sym == SDLK_SPACE && grounded) { jumping = true; }
     }
-    if (e.type == SDL_KEYUP)
+    if (event.type == SDL_KEYUP)
     {
-        if (e.key.keysym.sym == SDLK_RIGHT) {moveRight = false;}
-        if (e.key.keysym.sym == SDLK_LEFT) { moveLeft  = false;}
-        if (e.key.keysym.sym == SDLK_DOWN) { moveDown  = false; }
-        if (e.key.keysym.sym == SDLK_UP)   { moveUp    = false; }
+        if (event.key.keysym.sym == SDLK_RIGHT) {moveRight = false;}
+        if (event.key.keysym.sym == SDLK_LEFT)  {moveLeft  = false;}
+        if (event.key.keysym.sym == SDLK_DOWN)  {moveDown  = false;}
+        if (event.key.keysym.sym == SDLK_UP)    {moveUp    = false;}
+        // Jump
+        if (event.key.keysym.sym == SDLK_SPACE) { jumping = false; }
     }
 }
 
@@ -112,7 +119,7 @@ void Engine::AvoidLeaveScreen()
     if (playerX <= 0) { playerX = 0; }
     if (playerX >= SCREEN_WIDTH - 16) { playerX = SCREEN_WIDTH - 16; }
     if (playerY <= 0) { playerY = 0; }
-    if (playerY >= SCREEN_HEIGHT - 16) { playerY = SCREEN_HEIGHT - 16; }
+    if (playerY >= SCREEN_HEIGHT - 16) { playerY = SCREEN_HEIGHT - 16; PlayerVelocityY = 0; }
 }
 
 void Engine::ApplyPlayerMovement()
@@ -121,4 +128,11 @@ void Engine::ApplyPlayerMovement()
     if (moveLeft)  { playerX -= playerSpeed; }
     if (moveDown)  { playerY += playerSpeed; }
     if (moveUp)    { playerY -= playerSpeed; }
+    if (jumping and grounded)   { PlayerVelocityY = -0.2f;}
+    playerY += PlayerVelocityY;
+}
+
+void Engine::ApplyGravity()
+{
+    std::max(PlayerVelocityY += gravity, 1.0f);
 }
