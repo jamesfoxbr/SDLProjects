@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "Main.h"
 
 Engine::Engine()    
 {
@@ -106,7 +107,6 @@ void Engine::PlayerMovement(const SDL_Event &e)
         if (e.key.keysym.sym == SDLK_UP)   { moveUp    = false; }
     }
 }
-
 
 void Engine::ApplyPlayerMovement()
 {
