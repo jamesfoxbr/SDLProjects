@@ -18,7 +18,7 @@ void Object::SetPosition(float x, float y)
 	mPosition.mY = y;
 }
 
-Vector2Df Object::GetPosition()
+Vector2Df Object::GetPosition() const
 {
 	return mPosition;
 }

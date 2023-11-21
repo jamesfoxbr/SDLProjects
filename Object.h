@@ -18,7 +18,7 @@ public:
 	Object() = default;
 	~Object();
 	void SetPosition(float x, float y);
-	Vector2Df GetPosition();
+	Vector2Df GetPosition() const;
 	virtual void Display(float x, float y, SDL_Surface* ScreenSurface);
 };
 

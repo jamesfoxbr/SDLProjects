@@ -38,7 +38,7 @@ void Engine::GameLoop()
         //Handle events on queue
         while (SDL_PollEvent(&event) != 0)
         {
-            PlayerMovement(event);
+            james.PlayerMovement(event);
             
             //User requests quit
             if (event.type == SDL_QUIT)
@@ -66,18 +66,19 @@ void Engine::Start()
 
 void Engine::Update()
 {
-    if (playerY >= SCREEN_HEIGHT - 16) { grounded = true; }
-    else { grounded = false; }
+    if (james.GetPosition().mY >= SCREEN_HEIGHT - 16) {james.SetGrounded(true);}
+    else { james.SetGrounded(false);}
 
-    AvoidLeaveScreen();
-    ApplyPlayerMovement();
-    ApplyGravity();
+    james.AvoidLeaveScreen();
+    james.ApplyPlayerMovement();
+    james.ApplyGravity();
 }
 
 void Engine::Draw()
 {
     //Called every frame
-    james.Display(playerX, playerY, mScreenSurface);
+    
+    james.Display(mScreenSurface);
 }
 
 Engine::~Engine()
@@ -89,50 +90,4 @@ Engine::~Engine()
 SDL_Surface Engine::GetSurface()
 {
     return *mScreenSurface; 
-}
-
-void Engine::PlayerMovement(const SDL_Event &event)
-{
-
-    if (event.type == SDL_KEYDOWN)
-    {
-        if (event.key.keysym.sym == SDLK_RIGHT) {moveRight = true;}
-        if (event.key.keysym.sym == SDLK_LEFT)  {moveLeft  = true;}
-        if (event.key.keysym.sym == SDLK_DOWN)  {moveDown  = true;}
-        if (event.key.keysym.sym == SDLK_UP)    {moveUp    = true;}
-        // Jump
-        if (event.key.keysym.sym == SDLK_SPACE && grounded) { jumping = true; }
-    }
-    if (event.type == SDL_KEYUP)
-    {
-        if (event.key.keysym.sym == SDLK_RIGHT) {moveRight = false;}
-        if (event.key.keysym.sym == SDLK_LEFT)  {moveLeft  = false;}
-        if (event.key.keysym.sym == SDLK_DOWN)  {moveDown  = false;}
-        if (event.key.keysym.sym == SDLK_UP)    {moveUp    = false;}
-        // Jump
-        if (event.key.keysym.sym == SDLK_SPACE) { jumping = false; }
-    }
-}
-
-void Engine::AvoidLeaveScreen()
-{
-    if (playerX <= 0) { playerX = 0; }
-    if (playerX >= SCREEN_WIDTH - 16) { playerX = SCREEN_WIDTH - 16; }
-    if (playerY <= 0) { playerY = 0; }
-    if (playerY >= SCREEN_HEIGHT - 16) { playerY = SCREEN_HEIGHT - 16; PlayerVelocityY = 0; }
-}
-
-void Engine::ApplyPlayerMovement()
-{
-    if (moveRight) { playerX += playerSpeed; }
-    if (moveLeft)  { playerX -= playerSpeed; }
-    if (moveDown)  { playerY += playerSpeed; }
-    if (moveUp)    { playerY -= playerSpeed; }
-    if (jumping and grounded)   { PlayerVelocityY = -0.2f;}
-    playerY += PlayerVelocityY;
-}
-
-void Engine::ApplyGravity()
-{
-    std::max(PlayerVelocityY += gravity, 1.0f);
 }

@@ -3,12 +3,12 @@
 
 #include <stdio.h>
 #include <SDL.h>
+const int SCREEN_WIDTH = 640;
+const int SCREEN_HEIGHT = 480;
 
 class Window
 {
 private:
-	const int SCREEN_WIDTH  = 640;
-	const int SCREEN_HEIGHT = 480;
 
 public:
 	SDL_Window* mWindow = nullptr;           //The window we'll be rendering to
