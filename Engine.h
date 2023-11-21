@@ -7,7 +7,7 @@
 #include <SDL.h>
 #include <vector>
 #include "Window.h"
-#include "Object.h"
+#include "Player.h"
 
 class Engine
 {
@@ -16,10 +16,10 @@ private:
 	SDL_Window* mWindow = nullptr;           //The window we'll be rendering to
 	SDL_Surface* mScreenSurface = nullptr;	 //The surface contained by the window
 
-	float playerX     = 50.0f;
-	float playerY     = 50.0f;
-	float playerVelocityX = 0.0f;
-	float PlayerVelocityY = 0.0f;
+	float playerX     = 50.0f;				 // player x position
+	float playerY     = 50.0f;               // player y position
+	float playerVelocityX = 0.0f;            // player x current velocity
+	float PlayerVelocityY = 0.0f;            // player y current velocity
 	float playerSpeed = 0.05f;
 
 	bool moveRight = false;
@@ -33,15 +33,8 @@ private:
 	bool grounded = false;
 
 public:
-	// Player variables
-	Object james{playerX, playerY, "images/Idle.png"};
-	
-
-	// Detect Keypress
-	/*bool mUp = false;
-	bool mDown = false;
-	bool mLeft = false;
-	bool mRight = false;*/
+	// Player variable
+	Player james{playerX, playerY, "images/Idle.png"};
 
 	Engine();
 	~Engine();

@@ -19,7 +19,7 @@ public:
 	~Object();
 	void SetPosition(float x, float y);
 	Vector2Df GetPosition();
-	void Display(float x, float y, SDL_Surface* ScreenSurface);
+	virtual void Display(float x, float y, SDL_Surface* ScreenSurface);
 };
 
 #endif // !OBJECT_H
