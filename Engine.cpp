@@ -48,7 +48,7 @@ void Engine::GameLoop()
         }
                 
         //Update game logic
-        Update();
+        Update(event);
 
         //Fill surface with color
         SDL_FillRect(mScreenSurface, NULL, SDL_MapRGB(mScreenSurface->format, 0x88, 0x88, 0x88));
@@ -64,8 +64,9 @@ void Engine::Start()
 {
 }
 
-void Engine::Update()
+void Engine::Update(SDL_Event event)
 {
+    // Checks if the character is grounded
     if (james.GetPosition().mY >= SCREEN_HEIGHT - 16) {james.SetGrounded(true);}
     else { james.SetGrounded(false);}
 

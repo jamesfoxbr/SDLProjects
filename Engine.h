@@ -4,8 +4,8 @@
 #include <iostream>
 #include <algorithm>
 #include <stdio.h>
-#include <SDL.h>
 #include <vector>
+#include <SDL.h>
 #include "Window.h"
 #include "Player.h"
 
@@ -24,7 +24,7 @@ public:
 
 	void GameLoop();
 	void Start();
-	void Update();
+	void Update(SDL_Event event);
 	void Draw();
 
 	SDL_Surface GetSurface();

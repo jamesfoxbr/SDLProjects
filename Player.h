@@ -10,17 +10,17 @@ class Player: public Object
 private:
 	float playerVelocityX = 0.0f;        // player x current velocity
 	float PlayerVelocityY = 0.0f;        // player y current velocity
-	float playerSpeed = 0.05f;
+	float playerSpeed     = 0.05f;
 
 	bool moveRight = false;
-	bool moveLeft = false;
-	bool moveDown = false;
-	bool moveUp = false;
+	bool moveLeft  = false;
+	bool moveDown  = false;
+	bool moveUp    = false;
 
-	bool jumping = false;
+	bool jumping   = false;
 
-	float gravity = 0.0001f;
-	bool grounded = false;
+	float gravity  = 0.0001f;
+	bool  grounded = false;
 
 public:
 	void SetPosition(float x, float y);
