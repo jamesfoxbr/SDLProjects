@@ -58,5 +58,5 @@ void Player::ApplyPlayerMovement()
 
 void Player::ApplyGravity()
 {
-    std::max(PlayerVelocityY += gravity, 1.0f);
+    PlayerVelocityY = std::min(PlayerVelocityY + gravity, 1.0f);
 }
