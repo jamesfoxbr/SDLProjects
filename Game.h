@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include "Player.h"
 #include "Window.h"
+#include "Timer.h"
 
 class Game
 {
